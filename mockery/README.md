@@ -14,3 +14,8 @@ mockery --name DB
 
 ## 自定义yaml
 https://vektra.github.io/mockery/latest/configuration/#parameter-descriptions
+
+## 参考资料
+1. https://vektra.github.io/mockery/latest/
+2. https://github.com/vektra/mockery
+3. https://www.cnblogs.com/guoapeng/p/17359565.html
