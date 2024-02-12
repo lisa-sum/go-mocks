@@ -1,0 +1,72 @@
+syntax = "proto3";
+package user.v1;
+option go_package = "user/api/user/v1;v1";
+
+import "google/protobuf/empty.proto";
+
+service User{
+	rpc CreateUser(CreateUserRequest) returns (UserReply); // 创建用户
+	rpc GetUserList(PageRequest) returns(UserListReply){}; // 查询用户
+	rpc GetUserMobile(MobileRequest) returns(UserListReply){}; // 通过手机号查询用户
+	rpc GetUserID(IdRequest) returns (UserListReply){};
+	rpc UpdateUser(UpdateUserRequest) returns (google.protobuf.Empty){};
+	rpc CheckPassword(CheckPasswordRequest) returns (CheckPasswordReply){};
+}
+
+// 创建用户所需字段
+message  CreateUserRequest{
+	string nickName = 1;
+	string password = 2;
+	string mobile = 3;
+}
+
+// 返回用户信息
+message UserReply{
+	int64 id = 1;
+	string password = 2;
+	string mobile = 3;
+	string nickName = 4;
+	int64 birthday = 5;
+	string gender = 6;
+	int32 role = 7;
+}
+
+// 查询用户字段
+message PageRequest {
+	uint32 pn = 1;
+	uint32 pSize = 2;
+}
+
+message UserListReply {
+	int32 total = 1;
+	repeated UserListReply data = 2;
+}
+
+// 手机号查询
+message MobileRequest{
+	string mobile = 1;
+}
+
+// IdRequest
+message IdRequest {
+	int64 id = 1;
+}
+
+// UpdateUserRequest
+message UpdateUserRequest {
+	int64 id = 1;
+	string nickName = 2;
+	string gender = 3;
+	uint64 birthday = 4;
+}
+
+// CheckPasswordRequest
+message CheckPasswordRequest {
+	string password = 1;
+	string encryptedPassword = 2;
+}
+
+// 验证密码
+message CheckPasswordReply{
+	bool success = 1;
+}
